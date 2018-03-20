@@ -33,23 +33,22 @@ class Client
 
     public function connect()
     {
-        echo "connect \n";
-        $this->client->send('hello swool');
+        fwrite(STDOUT, "请输入消息：");
+        $msg = trim(fgets(STDIN));
+        $this->client->send( $msg );
     }
+
     public function error($cli)
     {
         print_r($cli);
     }
 
-    public function receive($cli , $data = '')
+    public function receive($cli, $data = '')
     {
-        if(empty($data)){
-            $this->close();
-        }else {
-            echo "received : $data\n";
-            sleep(1);
-            $this->client->send("hello \n");
-        }
+        echo "received : $data" .PHP_EOL;
+        fwrite(STDOUT, "请输入消息：");
+        $msg = trim(fgets(STDIN));
+        $this->client->send( $msg );
     }
 
     public function close()
