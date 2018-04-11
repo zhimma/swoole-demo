@@ -30,7 +30,7 @@ class Server
 
     public function onManagerStart()
     {
-        echo "manage start" . PHP_EOL;
+        echo "server start" . PHP_EOL;
     }
 
     public function onWorkerStart($server,$workerId)
@@ -40,7 +40,7 @@ class Server
 
     public function onWorkerStop($server , $workerId)
     {
-        echo "worker {$workerId} stop" .PHP_EOL;
+//        echo "worker {$workerId} stop" .PHP_EOL;
     }
 
     /**
@@ -70,16 +70,17 @@ class Server
      */
     public function onReceive(swoole_server $server, $fd, $from_id, $data)
     {
-        $server->task($data);
         fwrite(STDOUT, "请回复消息：");
         $msg = trim(fgets(STDIN));
-        $this->server->send($fd,$msg,$from_id);
+        $data = json_encode(['fd' => $fd , 'msg' => $msg , 'data' => $data],true);
+        $server->task($data);
     }
 
     public function onTask($server, $task_id, $from_id, $data)
     {
         echo "{$task_id} get  message from {$from_id} client  : {$data}" . PHP_EOL;
-
+        $rsult = json_decode($data);
+        $server->send($rsult['fd'],$rsult['data'],$task_id);
     }
 
     public function onFinish($server, $task_id, $data)
