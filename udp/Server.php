@@ -1,6 +1,6 @@
 <?php
 /**
- * @author 马雄飞 <xiongfei.ma@pactera.com>
+ * @author 马雄飞 <mma5694@gmail.com>
  * @date   2018/4/11 下午9:32
  */
 
