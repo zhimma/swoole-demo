@@ -22,7 +22,7 @@
     </div>
 </div>
 <script>
-    var Socket = new WebSocket("ws://0.0.0.0:9501");
+    var Socket = new WebSocket("ws://192.168.1.150:9501");
     $(".btn-default").on('click',function(){
         var msg = $('textarea').val();
         Socket.send(msg);
